@@ -43,3 +43,16 @@ func removeDuplicates(nums []int) int {
 	}
 	return left
 }
+
+func removeDuplicates2(nums []int) int {
+	left := 1
+	for right := 1; right < len(nums); right++ {
+		// 注意比较的是前一个元素
+		if nums[right] != nums[right-1] {
+			// 有效元素，赋值给左指针，左指针右移
+			nums[left] = nums[right]
+			left++
+		}
+	}
+	return left
+}
