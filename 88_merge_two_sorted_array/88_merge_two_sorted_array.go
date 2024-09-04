@@ -17,6 +17,7 @@ import "sort"
 合并结果是 [1,2,2,3,5,6] ，其中斜体加粗标注的为 nums1 中的元素。
 */
 
+// 思路: nums1后面有空位，可以从后往前填最大值
 func merge(nums1 []int, m int, nums2 []int, n int) {
 	// 指向 nums1 中最后一个元素的位置
 	curr := m + n - 1
