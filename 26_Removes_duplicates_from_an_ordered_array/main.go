@@ -2,6 +2,8 @@ package main
 
 /*
 *
+https://leetcode.cn/problems/remove-duplicates-from-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150
+
 给你一个 非严格递增排列 的数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。元素的 相对顺序 应该保持 一致 。然后返回 nums 中唯一元素的个数。
 
 考虑 nums 的唯一元素的数量为 k ，你需要做以下事情确保你的题解可以被通过：
@@ -27,11 +29,15 @@ package main
 nums 已按 非严格递增 排列
 */
 
+// right指针表示遍历数组到达的下标位置，left指针表示下一个不同元素要填入的下标位置
+// 初始时两个指针都指向下标 1,因为该数组有序，第一个元素一定有效
 func removeDuplicates(nums []int) int {
 	left := 1
-	for i := 1; i < len(nums); i++ {
-		if nums[i] != nums[left-1] {
-			nums[left] = nums[i]
+	for right := 1; right < len(nums); right++ {
+		// 注意比较的是前一个元素
+		if nums[right] != nums[left-1] {
+			// 有效元素，赋值给左指针，左指针右移
+			nums[left] = nums[right]
 			left++
 		}
 	}
