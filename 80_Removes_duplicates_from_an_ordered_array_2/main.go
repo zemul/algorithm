@@ -67,16 +67,16 @@ func removeDuplicates2(nums []int) int {
 
 // 记数法
 func removeDuplicates(nums []int) int {
-	var has bool
+	var exist bool // 表示是否已经存在两个相邻且相同的元素
 	var left = 1
 	for right := 1; right < len(nums); right++ {
 		if nums[right] != nums[left-1] {
 			nums[left] = nums[right]
-			has = false
+			exist = false
 			left++
-		} else if has == false {
+		} else if exist == false {
 			nums[left] = nums[right]
-			has = true
+			exist = true
 			left++
 		}
 	}
