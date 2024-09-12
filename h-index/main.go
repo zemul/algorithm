@@ -35,6 +35,7 @@ n == citations.length
 /*
 *
 [0,1,3,5,6] > 3
+排序法
 如果当前 H 指数为 h 并且在遍历过程中找到当前值 citations[i]>h，则说明我们找到了一篇被引用了至少 h+1 次的论文，所以将现有的 h 值加 1。继续遍历直到 h 无法继续增大。最后返回 h 作为最终答案。
 */
 func hIndex(citations []int) int {
