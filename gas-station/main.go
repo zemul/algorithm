@@ -46,8 +46,31 @@ cost.length == n
 1 <= n <= 105
 0 <= gas[i], cost[i] <= 104
 */
-
+// https://leetcode.cn/problems/gas-station/solutions/488357/jia-you-zhan-by-leetcode-solution/?envType=study-plan-v2&envId=top-interview-150
 // 一句话概括：如果x到达不了y+1，那么x-y之间的点也不可能到达y+1，因为中间任何一点的油都是拥有前面的余量的，所以下次遍历直接从y+1开始
 func canCompleteCircuit(gas []int, cost []int) int {
+	length := len(gas)
+	for i := 0; i < length; {
+		sumGas, sumCost, passPoint := 0, 0, 0
+		// 从第i个加油站开始出发
+		for passPoint < length {
+			// 从第i个加油站到第j个加油站耗油统计
+			j := (i + passPoint) % length
+			sumCost += cost[j]
+			sumGas += gas[j]
+			if sumCost > sumGas {
+				break
+			}
+			passPoint++
+		}
+		// 经过了所有加油站
+		if passPoint == length {
+			return i
+		} else {
+			// 从i到i+passPoint+1都不可能到达passPoint+1
+			i += passPoint + 1
+		}
 
+	}
+	return -1
 }
