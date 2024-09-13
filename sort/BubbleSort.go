@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"encoding/base64"
+	"fmt"
+)
 
-/**
+/*
+*
 最差时间复杂度皆为O(n²)，空间复杂度皆为O(1)。
 三种基础排序算法的优劣？
 
@@ -11,8 +15,32 @@ import "fmt"
 插入排序的比较和替换次数与数组的有序度相关，在数组有序的场景下，比较和替换的次数都会极低。
 因此插入排序在实践中一般会比冒泡和选择排序更快
 */
+func BytesToUint64(b []byte) (v uint64) {
+	length := uint(len(b))
+	for i := uint(0); i < length-1; i++ {
+		v += uint64(b[i])
+		v <<= 8
+	}
+	v += uint64(b[length-1])
+	return
+}
+
+func GenDirAndName(key []byte) (dirStr string, dirHash int64, name string) {
+	for len(key) < 8 {
+		key = append(key, 0)
+	}
+
+	dirHash = int64(BytesToUint64(key[:8]))
+	dirStr = base64.StdEncoding.EncodeToString(key[:8])
+	name = base64.StdEncoding.EncodeToString(key[8:])
+
+	return
+}
 
 func main() {
+	dir, hash, name := GenDirAndName([]byte("backup.Z"))
+	fmt.Println(dir, hash, name)
+
 	// 示例数组
 	arr := []int{64, 25, 12, 22, 11}
 	fmt.Println("Original array:", arr)
